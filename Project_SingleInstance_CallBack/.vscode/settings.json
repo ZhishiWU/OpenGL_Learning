@@ -1,0 +1,12 @@
+{
+    "cmake.debugConfig": {
+        // 这里写传给main的参数，一个字符串 = 一个argv参数
+        "args": [
+            "file.txt",
+            "--mode=test",
+            "123456"
+        ],
+        // 可选：程序运行工作目录，相对路径读取文件必配
+        "cwd": "${workspaceFolder}"
+    }
+}
