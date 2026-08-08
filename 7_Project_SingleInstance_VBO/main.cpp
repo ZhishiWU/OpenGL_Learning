@@ -79,6 +79,7 @@ int main(int argc, char *argv[], char *envp[])
     app->setResizeCallBack(onResize);
     app->setKeyCallBack(onkeyCallBack);
 
+    // prepareVBO_1();
     prepareVBO_2();
 
     // 渲染循环
