@@ -9,11 +9,6 @@ project(OpenGL_GLFW)
 
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/lib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/wrapper)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/application)
-
-add_subdirectory(wrapper)
-add_subdirectory(application)
 
 # 最低c++标准
 set(CMAKE_CXX_STANDARD 17)
@@ -42,6 +37,4 @@ target_link_directories(
 target_link_libraries(
 	opengl_glfw
 	glfw3
-	wrapper
-	app
 )
