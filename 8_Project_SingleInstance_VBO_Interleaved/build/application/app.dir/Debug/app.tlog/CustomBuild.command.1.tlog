@@ -1,0 +1,10 @@
+^D:\PROGRAM\CODE\CPP\OPENGL\8_PROJECT_SINGLEINSTANCE_VBO_INTERLEAVED\APPLICATION\CMAKELISTS.TXT
+setlocal
+D:\Program\Language\CMake\bin\cmake.exe -SD:/Program/Code/Cpp/OpenGL/8_Project_SingleInstance_VBO_Interleaved -BD:/Program/Code/Cpp/OpenGL/8_Project_SingleInstance_VBO_Interleaved/build --check-stamp-file D:/Program/Code/Cpp/OpenGL/8_Project_SingleInstance_VBO_Interleaved/build/application/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

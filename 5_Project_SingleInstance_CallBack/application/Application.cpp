@@ -43,6 +43,7 @@ bool Application::init(const GLint &mwidth, const GLint &mheight)
     }
 
     glfwSetFramebufferSizeCallback(this->mWindow, framebuffer_size_callback);
+    glfwSetKeyCallback(this->mWindow, key_callback);
 
     // this就是当前全局唯一的Application实例
     glfwSetWindowUserPointer(this->mWindow, this);
@@ -72,11 +73,17 @@ void Application::destroy()
     }
 
     glfwTerminate();
+    Application::~Application();
 }
 
 void Application::setResizeCallBack(ResizeCallback callback)
 {
     this->mResizeCallback = callback;
+}
+
+void Application::setKeyCallBack(keyCallBack callback)
+{
+    this->mKeyCallBack = callback;
 }
 
 void Application::framebuffer_size_callback(GLFWwindow *window, int width, int height)
@@ -85,9 +92,21 @@ void Application::framebuffer_size_callback(GLFWwindow *window, int width, int h
     {
         std::cout << "Resize: " << width << "x" << height << std::endl;
 
-        Application * self = static_cast<Application *>(glfwGetWindowUserPointer(window));
+        Application *self = static_cast<Application *>(glfwGetWindowUserPointer(window));
         self->mResizeCallback(width, height);
-    //    Application::getInstance()->mResizeCallback(width, height);
+        //    Application::getInstance()->mResizeCallback(width, height);
+    }
+}
+
+void Application::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (app->mKeyCallBack)
+    {
+        std::cout << "Key: " << key << ", scancode: " << scancode
+                  << ", action: " << action << ", mods: " << mods << std::endl;
+
+        Application *self = static_cast<Application *>(glfwGetWindowUserPointer(window));
+        self->mKeyCallBack(window, key, scancode, action, mods);
     }
 }
 
@@ -98,4 +117,6 @@ Application::Application()
 
 Application::~Application()
 {
+    this->destroy();
+    std::cout << "delete" << std::endl;
 }

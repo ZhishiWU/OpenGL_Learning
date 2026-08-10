@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+D:/Program/Code/Cpp/OpenGL/8_Project_SingleInstance_VBO_Interleaved/thirdParty/glfw/docs/CMakeLists.txt
+D:/Program/Language/CMake/share/cmake-4.4/Modules/FindDoxygen.cmake
+D:/Program/Language/CMake/share/cmake-4.4/Modules/FindPackageHandleStandardArgs.cmake
+D:/Program/Language/CMake/share/cmake-4.4/Modules/FindPackageMessage.cmake

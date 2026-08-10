@@ -1,0 +1,89 @@
+{
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target"
+		],
+		"files" : 
+		[
+			"thirdParty/glfw/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 130,
+				"parent" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "GLFW3"
+	},
+	"id" : "uninstall::@89d32bea7d21befe081b",
+	"name" : "uninstall",
+	"paths" : 
+	{
+		"build" : "thirdParty/glfw",
+		"source" : "thirdParty/glfw"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"isGenerated" : true,
+			"path" : "build/thirdParty/glfw/CMakeFiles/uninstall",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"backtraces" : 
+			[
+				0
+			],
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/1271239f00f595f9e8e4658bc212ee59/uninstall.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

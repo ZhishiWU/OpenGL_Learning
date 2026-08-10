@@ -1,44 +1,49 @@
-# 设置编译器编码为utf-8
-add_compile_options(/utf-8)
-
-# 最低cmake版本
 cmake_minimum_required(VERSION 3.12)
 
 # 工程名称
 project(OpenGL_GLFW)
 
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/lib)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/wrapper)
-
-add_subdirectory(wrapper)
+# Windows才设置utf8编译选项；Linux不能识别 /utf‑8
+if(WIN32)
+    add_compile_options(/utf-8)
+endif()
 
 # 最低c++标准
 set(CMAKE_CXX_STANDARD 17)
 
-# 向项目中增加全局的预编译宏
+# 全局预编译宏
 add_definitions(-DDEBUG)
 
-# 本工程所有cpp文件链接编译器 生成exe可执行文件
-add_executable(opengl_glfw "main.cpp" "glad.c")
+# 引入glfw子项目
+add_subdirectory(${CMAKE_SOURCE_DIR}/thirdParty/glfw)
+# 引入wrapper子库（内部有自己的CMakeLists.txt）
+add_subdirectory(${CMAKE_SOURCE_DIR}/wrapper)
 
-# include目录
+# 生成可执行程序
+add_executable(opengl_glfw
+    "main.cpp"
+    "glad.c"
+)
+
+# 头文件搜索路径(glad头文件)
 target_include_directories(
-	opengl_glfw
-	PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
+    opengl_glfw
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
 )
 
-# lib目录
-target_link_directories(
-	opengl_glfw
-	PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/lib
-)
-
-# 链接lib库
+# 链接glfw（来自源码编译，不再依赖thirdParty/lib下的glfw3.lib）
 target_link_libraries(
-	opengl_glfw
-	glfw3
-	wrapper
+    opengl_glfw
+    PRIVATE
+    glfw
+    wrapper
 )
+
+# 分平台链接OpenGL
+if(WIN32)
+    target_link_libraries(opengl_glfw PRIVATE opengl32.lib)
+elseif(UNIX)
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(opengl_glfw PRIVATE ${OPENGL_LIBRARIES})
+endif()

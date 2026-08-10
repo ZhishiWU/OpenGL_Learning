@@ -73,6 +73,7 @@ void Application::destroy()
     }
 
     glfwTerminate();
+    Application::~Application();
 }
 
 void Application::setResizeCallBack(ResizeCallback callback)
@@ -116,4 +117,6 @@ Application::Application()
 
 Application::~Application()
 {
+    this->destroy();
+    std::cout << "delete" << std::endl;
 }

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Program\Code\Cpp\OpenGL\8_Project_SingleInstance_VBO_Interleaved\build\CMakeFiles\ec82fccce75841df7b18cf18609fea85\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\Program\Code\Cpp\OpenGL\8_Project_SingleInstance_VBO_Interleaved\thirdParty\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\Program\Code\Cpp\OpenGL\8_Project_SingleInstance_VBO_Interleaved\thirdParty\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="D:\Program\Code\Cpp\OpenGL\8_Project_SingleInstance_VBO_Interleaved\thirdParty\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="D:\Program\Code\Cpp\OpenGL\8_Project_SingleInstance_VBO_Interleaved\build\thirdParty\glfw\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{996BE56F-76EF-3E7D-BF92-1BB495EA418F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{A7DB3D15-59C2-3236-9675-8C38BCA4E4F0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
