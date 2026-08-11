@@ -105,6 +105,64 @@ void prepareVBO_4()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_interleaved), vertices_interleaved, GL_STATIC_DRAW);
 }
 
+void prepareVAO_SingleBuffer()
+{
+    GLuint posVbo;
+    GLuint colorVbo;
+
+    glGenBuffers(1, &posVbo);
+    glGenBuffers(1, &colorVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, posVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, colorVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+
+    // 一个VAO存储两个VBO，一个存储位置，一个存储颜色
+    GLuint vao = 0;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, posVbo); // 绑定位置VBO
+    glEnableVertexAttribArray(0); // 启用顶点属性, 必须先激活顶点属性, 才能设置顶点属性指针
+    // 设置顶点属性指针
+    // glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
+    // 参数1: 顶点属性位置
+    // 参数2: 顶点属性大小 (vec3) 一个属性有几个分量
+    // 参数3: 顶点属性类型 每个分量的数据类型
+    // 参数4: 是否归一化 (0.0f - 1.0f)
+    // 参数5: 步长 (每个顶点属性的字节数, 也就是每个顶点属性占用多少字节)
+    // 参数6: 顶点数据的内部偏移量 (相对于第一个顶点属性)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat), (void*)0); // 设置顶点属性指针
+
+    glBindBuffer(GL_ARRAY_BUFFER, colorVbo); // 绑定颜色VBO
+    glEnableVertexAttribArray(1); // 前面已经启用了顶点属性, 现在启用颜色属性
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat), (void*)0); // 设置顶点属性指针
+
+    glBindVertexArray(NULL); // 解绑VAO
+
+}
+
+void prepareVAO_InterleavedBuffer()
+{
+    GLuint vboInterleaved = 0;
+    glGenBuffers(1, &vboInterleaved);
+    glBindBuffer(GL_ARRAY_BUFFER, vboInterleaved);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_interleaved), vertices_interleaved, GL_STATIC_DRAW);
+
+    GLuint vao = 0;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+
+    glBindVertexArray(NULL);
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
     for (int i = 0; i < argc; ++i)
@@ -121,7 +179,9 @@ int main(int argc, char *argv[], char *envp[])
     // prepareVBO_1();
     // prepareVBO_2();
     // prepareVBO_3();
-    prepareVBO_4();
+    // prepareVBO_4();
+    // prepareVAO_SingleBuffer();
+    prepareVAO_InterleavedBuffer();
 
     // 渲染循环
     while (app->update())

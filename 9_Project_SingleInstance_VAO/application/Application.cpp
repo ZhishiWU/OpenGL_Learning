@@ -112,7 +112,7 @@ void Application::key_callback(GLFWwindow *window, int key, int scancode, int ac
 
 Application::Application()
 {
-    std::cout << "new" << std::endl;
+    // std::cout << "new window" << std::endl;
 }
 
 Application::~Application()
