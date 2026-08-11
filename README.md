@@ -5,6 +5,8 @@ It tested on Visual Studio 2026 and  Visual Studio Code with MSVC.
 
 We use glfw source code so that it can be compile in multi platforms.
 
+First copy folder "glfw" to "thirdParty" of the  project which you want to compile.
+
 Use “cmake -P build.cmake” to build the project.
 
 Use “cmake -P run.cmake” to execute the project.
