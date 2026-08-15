@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenGL_GLFW)
 
 # Windows才设置utf8编译选项；Linux不能识别 /utf‑8
-if(WIN32)
+if(MSVC)
     add_compile_options(/utf-8)
 endif()
 
@@ -32,6 +32,7 @@ target_include_directories(
     opengl_glfw
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/wrapper
     ${CMAKE_CURRENT_SOURCE_DIR}/application
 )
 
