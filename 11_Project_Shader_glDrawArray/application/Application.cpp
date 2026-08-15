@@ -56,8 +56,6 @@ bool Application::update()
     if (glfwWindowShouldClose(this->mWindow))
         return false;
 
-    GL_CHECK_ERROR(glClear(GL_COLOR_BUFFER_BIT));
-
     glfwSwapBuffers(this->mWindow);
     glfwPollEvents();
 

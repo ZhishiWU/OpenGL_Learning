@@ -4,6 +4,11 @@
 auto constexpr WINDOW_WIDTH = 800;
 auto constexpr WINDOW_HEIGHT = 600;
 
+GLuint vboInterleaved = NULL;
+GLuint vao = NULL;
+
+GLint program = NULL;
+
 // 三个顶点坐标
 GLfloat vertices[] = {
     -0.5f, -0.5f, 0.0f,
@@ -145,12 +150,12 @@ void prepareVAO_SingleBuffer()
 
 void prepareVAO_InterleavedBuffer()
 {
-    GLuint vboInterleaved = 0;
+    // GLuint vboInterleaved = 0;
     glGenBuffers(1, &vboInterleaved);
     glBindBuffer(GL_ARRAY_BUFFER, vboInterleaved);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_interleaved), vertices_interleaved, GL_STATIC_DRAW);
 
-    GLuint vao = 0;
+    // GLuint vao = 0;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
@@ -214,27 +219,25 @@ void prepareShader()
     else
         std::cout << "Fragment shader compiled successfully." << std::endl;
 
-    GLint vertexShaderProgram;
-    GLint fragmentShaderProgram;
+    // GLint vertexShaderProgram;
+    // GLint fragmentShaderProgram;
 
     // 创建着色器程序对象
-    vertexShaderProgram = glCreateProgram();
-    fragmentShaderProgram = glCreateProgram();
+    program = glCreateProgram();
 
     // 将着色器对象附加到着色器程序对象
-    glAttachShader(vertexShaderProgram, vertexShader);
-    glAttachShader(fragmentShaderProgram, fragmentShader);
+    glAttachShader(program, vertexShader);
+    glAttachShader(program, fragmentShader);
 
     // 链接着色器程序对象
-    glLinkProgram(vertexShaderProgram);
-    glLinkProgram(fragmentShaderProgram);
+    glLinkProgram(program);
 
     // 检查着色器程序是否链接成功
-    glGetProgramiv(vertexShaderProgram, GL_LINK_STATUS, &success);
+    glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (!success)
     {
         GLchar *infoLog = new GLchar[512];
-        glGetProgramInfoLog(vertexShaderProgram, 512, NULL, infoLog);
+        glGetProgramInfoLog(program, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n";
         std::cout << infoLog << std::endl;
         delete[] infoLog;
@@ -242,17 +245,35 @@ void prepareShader()
     else
         std::cout << "Shader program linked successfully." << std::endl;
 
-    glGetProgramiv(fragmentShaderProgram, GL_LINK_STATUS, &success);
+    glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (!success)
     {
         GLchar *infoLog = new GLchar[512];
-        glGetProgramInfoLog(fragmentShaderProgram, 512, NULL, infoLog);
+        glGetProgramInfoLog(program, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n";
         std::cout << infoLog << std::endl;
         delete[] infoLog;
     }
     else
         std::cout << "Shader program linked successfully." << std::endl;
+}
+
+void render()
+{
+    // 清除颜色缓冲区
+    GL_CHECK_ERROR(glClear(GL_COLOR_BUFFER_BIT));
+
+    // 使用着色器程序对象
+    GL_CHECK_ERROR(glUseProgram(program));
+
+    // 绑定VAO对象
+    GL_CHECK_ERROR(glBindVertexArray(vao));
+
+    // 绘制三角形
+    GL_CHECK_ERROR(glDrawArrays(GL_TRIANGLES, 0, 3));
+
+    // 解绑VAO对象
+    GL_CHECK_ERROR(glBindVertexArray(NULL));
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -273,13 +294,16 @@ int main(int argc, char *argv[], char *envp[])
     // prepareVBO_3();
     // prepareVBO_4();
     // prepareVAO_SingleBuffer();
-    // prepareVAO_InterleavedBuffer();
+    prepareVAO_InterleavedBuffer();
+    std::cout << "vao = " << vao << " vboInterleaved = " << vboInterleaved <<std::endl;
     prepareShader();
+    std::cout << "program = " << program << std::endl;
 
     // 渲染循环
     while (app->update())
         // 执行OpenGL渲染命令
-        GL_CHECK_ERROR(glClear(GL_COLOR_BUFFER_BIT));
+        // GL_CHECK_ERROR(glClear(GL_COLOR_BUFFER_BIT));
+        render();
 
     // delete app;
     app->destroy();
