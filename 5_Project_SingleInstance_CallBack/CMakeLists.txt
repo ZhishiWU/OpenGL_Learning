@@ -41,6 +41,7 @@ target_link_libraries(
     opengl_glfw
     PRIVATE
     glfw
+    wrapper
     app
 )
 

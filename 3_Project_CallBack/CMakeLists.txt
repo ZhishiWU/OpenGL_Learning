@@ -34,6 +34,7 @@ target_include_directories(
 target_link_libraries(
     opengl_glfw
     PRIVATE
+    wrapper
     glfw
 )
 

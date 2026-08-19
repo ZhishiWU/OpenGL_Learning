@@ -25,7 +25,11 @@ GLfloat vertices_interleaved[] = {
     // x y z r g b
     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-    0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f};
+    0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+    0.95f, -0.25f, 0.0f, 1.0f, 1.0f, 0.0f,
+    0.0f, 0.25f, 0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, -0.95f, 0.0f, 0.0f, 1.0f, 1.0f
+};
 
 void onResize(int width, int height)
 {
@@ -273,7 +277,7 @@ void render()
     GL_CHECK_ERROR(glBindVertexArray(vao));
 
     // 绘制三角形
-    GL_CHECK_ERROR(glDrawArrays(GL_TRIANGLES, 0, 3));
+    GL_CHECK_ERROR(glDrawArrays(GL_TRIANGLES, 0, 6));
 
     // 解绑VAO对象
     GL_CHECK_ERROR(glBindVertexArray(NULL));
