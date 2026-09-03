@@ -1,5 +1,6 @@
 #include <Application.h>
 #include <shader.hpp>
+#include <readGLSL.h>
 
 auto constexpr WINDOW_WIDTH = 800;
 auto constexpr WINDOW_HEIGHT = 600;
@@ -193,7 +194,13 @@ void prepareShader()
     
     // ShaderFileLoader* shaderLoader = new ShaderFileLoader(".\\shader\\vertexShader.glsl", ".\\shader\\fragmentShader.glsl");
 
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    string vertexShaderSource = readGLSL("shader\\vertexShaderSource.glsl");
+    const char *vertexShaderSourcePtr = vertexShaderSource.c_str();
+
+    string fragmentShaderSource = readGLSL("shader\\fragmentShaderSource.glsl");
+    const char *fragmentShaderSourcePtr = fragmentShaderSource.c_str();
+
+    glShaderSource(vertexShader, 1, &vertexShaderSourcePtr, NULL);
     glCompileShader(vertexShader);
     // 检查着色器是否编译成功
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
@@ -210,7 +217,7 @@ void prepareShader()
         std::cout << "Vertex shader compiled successfully." << std::endl;
 
     // 编译fragmentShader着色器
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSourcePtr, NULL);
     glCompileShader(fragmentShader);
     // 检查着色器是否编译成功
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
